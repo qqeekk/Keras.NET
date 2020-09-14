@@ -22,10 +22,12 @@ namespace Keras.Layers
 
     public class Concatenate : Merge
     {
-        public Concatenate(params BaseLayer[] inputs)
+        public Concatenate(string name, params BaseLayer[] inputs)
         {
-            //Parameters["inputs"] = inputs;
-            PyInstance = Instance.keras.layers.concatenate(inputs.Select(x => (x.ToPython())).ToList());
+            Parameters["inputs"] = inputs.Select(x => (x.ToPython())).ToArray();
+            Parameters["name"] = name;
+            PyInstance = Instance.keras.layers.concatenate;
+            Init();
         }
     }
 }
